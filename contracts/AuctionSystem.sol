@@ -4,12 +4,13 @@ pragma solidity ^0.8.0;
 import "./MusicNFT.sol";
 import "./MyToken.sol";
 import "../node_modules/@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "./ERC20/IERC20.sol";
 
 contract AuctionSystem is MusicNFT{
     
    
     struct Auction{
-        // address nftAddress;
+        address nftAddress;
         uint256 nftId;
         address tokenAddress;
         address creator;
@@ -54,7 +55,7 @@ contract AuctionSystem is MusicNFT{
     public
     view
     returns(
-        // address _nftAddress,
+        address _nftAddress,
         uint256 _nftId,
         address _tokenAddress,
         History[] memory _historyOffer,
@@ -65,7 +66,7 @@ contract AuctionSystem is MusicNFT{
     {
         require(_index <= auctions.length,"AUCTION_NOT_FOUND");
         Auction memory auction = auctions[_index];
-        // _nftAddress = auction.nftAddress;
+        _nftAddress = auction.nftAddress;
         _nftId = auction.nftId;
         _tokenAddress = auction.tokenAddress;
         _historyOffer = historyOffer[_index];
@@ -75,7 +76,7 @@ contract AuctionSystem is MusicNFT{
     }
 
     function startAuction(
-        // address _nftAddress,
+        address _nftAddress,
         uint256 _nftId,
         address _tokenAddress,
         uint256 _startPrice,
@@ -91,18 +92,9 @@ contract AuctionSystem is MusicNFT{
         if(_startTime == 0)
             _startTime = block.timestamp;
 
-        /*if can assign properly*/
-        // History[] memory _history = new History[](0);
-        // History memory ownerHistory = History({
-        //     offer:_startPrice,
-        //     offerers:msg.sender,
-        //     time:block.timestamp
-        // });
-        // _history[0]=ownerHistory;
-
         Auction memory auction = Auction({
             creator: msg.sender,
-            // nftAddress: _nftAddress,
+            nftAddress: _nftAddress,
             nftId: _nftId,
             tokenAddress: _tokenAddress,
             startTime: _startTime,
@@ -114,18 +106,23 @@ contract AuctionSystem is MusicNFT{
         });
         auctions.push(auction);
         myNFTOnAuction[msg.sender].push(_nftId);
-        transferFrom(msg.sender,address(this),_nftId);
+
+        /*合约需要先向msg.sender请求allowance*/
+        ERC721 myERC721 = ERC721(_nftAddress);
+        myERC721.transferFrom(payable(msg.sender), address(this), _nftId);
     }
 
 
         
-    function test(uint256 amount)
+    function test(uint256 amount, address tokenAddr)
     public
     payable
     {
-        // IERC20 token = IERC20(mytoken);
-        // token.transfer(payable(address(this)),amount);
-        payable(address(this)).transfer(amount * 1 ether);
+        IERC20 token = IERC20(tokenAddr);
+        transferFromERC20(token,payable(msg.sender),address(this),amount);
+        // token.approve(msg.sender,amount);
+        // token.transferFrom(payable(msg.sender),payable(address(this)),amount);
+        // payable(address(this)).transfer(amount);
     }
     
     
@@ -134,20 +131,24 @@ contract AuctionSystem is MusicNFT{
         uint256 _offer
     )
     public
-    // payable
+    payable
     {
         Auction storage auction = auctions[_index];
         require(_offer > auction.currentBidAmount,"NOT_HIGH_ENOUGH");
         require(block.timestamp < auction.startTime+auction.duration,"AUCTION_END");
-        // IERC20 token = IERC20(auction.tokenAddress);
-        // token.transfer(payable(address(this)),_offer);
-        // if(auction.currentBidAmount!=0)
-        //     require(token.transferFrom(address(this), auction.currentBidOwner, auction.currentBidAmount*10**2),"ERC20-ERROR");
+
+        /*合约需要先向msg.sender请求allowance*/
+        IERC20 token = IERC20(auction.tokenAddress);
+        transferFromERC20(token,payable(msg.sender),address(this),_offer);
+        // token.transferFrom(msg.sender,address(this),_offer);
+
+        if(auction.bidCount!=0)
+            require(transferFromERC20(token,payable(address(this)),auction.currentBidOwner,auction.currentBidAmount),"ERC20-FAILURE");
+            // require(token.transferFrom(address(this), auction.currentBidOwner, auction.currentBidAmount*10**2),"ERC20-ERROR");
 
         auction.bidCount++;
         auction.currentBidAmount = _offer;
         auction.currentBidOwner = msg.sender;
-        auction.bidCount++;
 
         History memory history = History({
             offer: _offer,
@@ -171,14 +172,35 @@ contract AuctionSystem is MusicNFT{
         uint256 _index
     )
     public
+    payable
     {
         require(auctionState(_index),"AUCTION_NOT_END");
         require(auctions[_index].currentBidOwner == msg.sender,"NOT_YOU");
-        transferFrom(address(this),msg.sender,auctions[_index].nftId);//有问题
+
+        ERC721 myERC721 = ERC721(auctions[_index].nftAddress);
+        myERC721.transferFrom(payable(address(this)), msg.sender, auctions[_index].nftId);
+
         NFTOwnership memory temp = NFTOwnership({owner:msg.sender,wayOfOwn:2});
         OwnershipChange[auctions[_index].nftId].pop();
         OwnershipChange[auctions[_index].nftId].push(temp);
         myNFTFromAuction[msg.sender].push(auctions[_index].nftId);
     }
     
+
+    function transferFromERC20(
+        IERC20 _token,
+        address _from,
+        address _to,
+        uint256 _amount
+    )
+    internal
+    returns (bool)
+    {
+        (bool callSuccess, bytes memory callReturnValueEncoded) = address(_token).call(
+            abi.encodeWithSignature("transferFrom(address,address,uint256)", _from, _to, _amount)
+        );
+        // `transferFrom` method may return (bool) or nothing.
+        bool returnedSuccess = callReturnValueEncoded.length == 0 || abi.decode(callReturnValueEncoded, (bool));
+        return callSuccess && returnedSuccess;
+    }
 }

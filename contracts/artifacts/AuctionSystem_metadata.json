@@ -110,6 +110,11 @@
 				"name": "AuctionProgression",
 				"outputs": [
 					{
+						"internalType": "address",
+						"name": "_nftAddress",
+						"type": "address"
+					},
+					{
 						"internalType": "uint256",
 						"name": "_nftId",
 						"type": "uint256"
@@ -175,7 +180,7 @@
 				],
 				"name": "Bid",
 				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -188,7 +193,7 @@
 				],
 				"name": "Claim",
 				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -788,6 +793,11 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "_nftAddress",
+						"type": "address"
+					},
+					{
 						"internalType": "uint256",
 						"name": "_nftId",
 						"type": "uint256"
@@ -856,6 +866,11 @@
 						"internalType": "uint256",
 						"name": "amount",
 						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "tokenAddr",
+						"type": "address"
 					}
 				],
 				"name": "test",
@@ -1101,11 +1116,11 @@
 	},
 	"sources": {
 		"contracts/AuctionSystem.sol": {
-			"keccak256": "0xda2ec010ede419c29d996f52cd73e6cdfe7a03fdc21eefb5693701a83457c2a3",
+			"keccak256": "0xa1774313d8ee9b38a32545c8271c5f96ed11a6fabf97df3eff1e76af0862bd86",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c5536f760d22361d47d0ffef515760abb85f8978b175c91d57f9aff60e504ec4",
-				"dweb:/ipfs/QmRdnDXS933Ntokv9mc9D8Tg39aYEKVYMMS943gxN71pjt"
+				"bzz-raw://dbd2fb3656287cc06763992cf45d282fc4739dbc0824e23b42d0372403b41d55",
+				"dweb:/ipfs/QmaJdCR6SnjZqRZS7diKsThUMGces1aYfio6E2qMnUXLt8"
 			]
 		},
 		"contracts/ERC20/Context.sol": {
