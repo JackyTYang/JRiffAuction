@@ -111,6 +111,11 @@
 				"outputs": [
 					{
 						"internalType": "address",
+						"name": "_creator",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
 						"name": "_nftAddress",
 						"type": "address"
 					},
@@ -873,7 +878,25 @@
 						"type": "address"
 					}
 				],
-				"name": "test",
+				"name": "test1",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "tokenAddr",
+						"type": "address"
+					}
+				],
+				"name": "test2",
 				"outputs": [],
 				"stateMutability": "payable",
 				"type": "function"
@@ -1116,11 +1139,11 @@
 	},
 	"sources": {
 		"contracts/AuctionSystem.sol": {
-			"keccak256": "0xa1774313d8ee9b38a32545c8271c5f96ed11a6fabf97df3eff1e76af0862bd86",
+			"keccak256": "0x04013e9d9e9fa2e688d839f329e68e49f419ed3c3f05cb94a70145223a62a261",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://dbd2fb3656287cc06763992cf45d282fc4739dbc0824e23b42d0372403b41d55",
-				"dweb:/ipfs/QmaJdCR6SnjZqRZS7diKsThUMGces1aYfio6E2qMnUXLt8"
+				"bzz-raw://56e32becacac587740f3be8ca7c0aea48dbf0ca74012dbbd53b47b3973b2a01b",
+				"dweb:/ipfs/QmZGk7krzLydRHyFDnNTtV2kUgv3shA9b3ZkKgxCAryBUU"
 			]
 		},
 		"contracts/ERC20/Context.sol": {
@@ -1164,11 +1187,11 @@
 			]
 		},
 		"contracts/MyToken.sol": {
-			"keccak256": "0x15c0d322e0e5881bc5a0658eb0389119554aed231c9837ef55bbb46859dd8012",
+			"keccak256": "0xb1819edccb60da3e97810a1b9abcde853f02f6b57fff4154be3ca31a41f4db60",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://80d5462c652509426e03dae72f9c1a80b8ab65cd87767e9510fe4a69dbdfa361",
-				"dweb:/ipfs/QmTaRD8ddrcGV7gGdt3jaUwKizgmNR2sAewzYksdEaUovA"
+				"bzz-raw://bf082de1c4f7bdc061fbbeda8b24b171cce4b4dfa8a9090e92d2bc1399a8dbb1",
+				"dweb:/ipfs/QmSxgmESyUEQNb7H9pSeZB3ZKhL6kytbXBERMsVzfDwZeQ"
 			]
 		},
 		"contracts/ownership/ownable.sol": {
@@ -1241,14 +1264,6 @@
 			"urls": [
 				"bzz-raw://a9cc02a91a6d7b593feba6ee666f237f284710edbb4f32d1c8b701b83c69d596",
 				"dweb:/ipfs/QmUkz7r8zGU8trjf7bk8cLo9sKEDMyVR6KQTdNoRU7317o"
-			]
-		},
-		"node_modules/@openzeppelin/contracts/utils/math/SafeMath.sol": {
-			"keccak256": "0x8666f020bd8fc9dc14f07e2ebc52b5f236ab4cdde7c77679b08cb2f94730043b",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://163776cbf565c722232393aa2d62cbe8a2ffb5805986abf4906c00e1e07450a6",
-				"dweb:/ipfs/QmPZoN9T3cb6o8bGhjBPZcz7im8T8DWhpr3tjLwhJJHx9N"
 			]
 		}
 	},

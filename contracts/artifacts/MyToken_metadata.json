@@ -118,6 +118,30 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "myAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "approveForMySelf",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "account",
 						"type": "address"
 					}
@@ -381,11 +405,11 @@
 			]
 		},
 		"contracts/MyToken.sol": {
-			"keccak256": "0x15c0d322e0e5881bc5a0658eb0389119554aed231c9837ef55bbb46859dd8012",
+			"keccak256": "0xb1819edccb60da3e97810a1b9abcde853f02f6b57fff4154be3ca31a41f4db60",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://80d5462c652509426e03dae72f9c1a80b8ab65cd87767e9510fe4a69dbdfa361",
-				"dweb:/ipfs/QmTaRD8ddrcGV7gGdt3jaUwKizgmNR2sAewzYksdEaUovA"
+				"bzz-raw://bf082de1c4f7bdc061fbbeda8b24b171cce4b4dfa8a9090e92d2bc1399a8dbb1",
+				"dweb:/ipfs/QmSxgmESyUEQNb7H9pSeZB3ZKhL6kytbXBERMsVzfDwZeQ"
 			]
 		}
 	},

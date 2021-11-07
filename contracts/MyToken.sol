@@ -16,4 +16,12 @@ contract MyToken is ERC20 {
     function decimals() public pure override returns (uint8) {
         return 2;
     }
+    
+    function approveForMySelf(address myAddress, uint256 amount)
+    public
+    returns (bool)
+  {
+    _approve(myAddress, myAddress, amount);
+    return true;
+  }
 }

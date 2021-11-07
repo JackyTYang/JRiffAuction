@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <script src="./js/truffle-contract.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.2.6/dist/web3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./js/web3Code.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Auction DAPP</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+    <div class="connector">
+         <button id="connectWallet" onclick="connectWallet()">连接钱包</button>
+    </div>
+
+    <div class="container">
+                <h1>NFT拍卖系统</h1>
+                <div class="input">
+                    <label for="_accountAddress" class="col-lg-2 control-label">账户地址：</label>
+                    <input id="_accountAddress" type="text">
+                    <label for="_nftAddress" class="col-lg-2 control-label">NFT地址：</label>
+                    <input id="_nftAddress" type="text">
+                    <label for="_nftId" class="col-lg-2 control-label">NFTID：</label>
+            <input id="_nftId" type="text">
+            <label for="_tokenAddress" class="col-lg-2 control-label">代币地址：</label>
+            <input id="_tokenAddress" type="text">
+            <label for="_startPrice" class="col-lg-2 control-label">起拍价：</label>
+            <input id="_startPrice" type="text">
+            <label for="_startTime" class="col-lg-2 control-label">起拍时间(秒）：</label>
+            <input id="_startTime" type="text">
+            <label for="_duration"class="col-lg-2 control-label">持续时间：</label>
+            <input id="_duration" type="text">
+        </div>
+
+        <div class="info">
+            <label for="_showNftAddress">NFT地址：</label>
+            <h2 id="_showNftAddress"></h2>
+            <label for="_showNftId">NFTID：</label>
+            <h2 id="_showNftId"></h2>
+            <label for="_showTokenAddress">代币地址：</label>
+            <h2 id="_showTokenAddress"></h2>
+            <label for="_showStartTime">拍卖开始时间：</label>
+            <h2 id="_showStartTime"></h2>
+            <label for="_showEndTime">拍卖结束时间：</label>
+            <h2 id="_showEndTime"></h2>
+            <label for="_showBidCount">总叫价次数：</label>
+            <h2 id="_showBidCount"></h2>
+            <label for="_showMyNFT">拥有的NFT：</label>
+            <h2 id="_showMyNFT"></h2>
+        </div>
+
+        <div class="buttons">
+          <button id="balanceOf">拥有的NFT</button>
+          <button id="mint" onclick="_mint()">铸造NFT</button>
+          <button id="startAuction">发起拍卖</button>
+          <button id="Bid">叫价</button>
+          <button id="Claim">认购</button>
+          <button id="AuctionProgression">查看拍卖状态</button>
+          <button id="ShowOwnershipChange">查看NFT所有权流转信息</button>
+          <button id="ShowMyNFTFromAuction">我拍卖得到的NFT</button>
+          <button id="ShowMyNFTOnAuction">我正在拍卖的NFT</button>
+        </div>
+    </div>
+    <hr />
+</body>
+</html>
